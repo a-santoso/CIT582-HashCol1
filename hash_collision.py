@@ -17,7 +17,7 @@ def hash_collision(k):
     # Collision finding code goes here
     for i in range(1000000):
 
-        random_word = os.urandom(20)
+        random_word = os.urandom(2000)
         hash_result = hashlib.sha256(random_word).digest()
         hash_result = hash_result[:k]        # slice to last k digits
         if hash_result in ref_table:
