@@ -12,17 +12,17 @@ def hash_collision(k):
         return (b'\x00', b'\x00')
 
     # Collision finding code goes here
-    for value in range(k):
+    for value in range(10):
 
         random_binary = os.urandom(8)
         result = hashlib.sha256(random_binary).digest()
-        result = result[:1]
+        result = result[:k]
         if result in lookup_table:
-            print("Collission")
-            print(random_binary, result)
-            print(lookup_table[result], result)
-            x = result[:1]
-            y = result[:1]
+            print("Collission found")
+            print("String 1: " + random_binary, "Matching bits: " + result[:k])
+            print("String 2: " + lookup_table[result], "Matching bits: " + result[:k])
+            x = random_binary
+            y = lookup_table[result]
         else:
             lookup_table[result] = random_binary
 
@@ -32,5 +32,5 @@ def hash_collision(k):
     return (x, y)
 
 
-if __name__ == '__hash_collission__':
+if __name__ == '__hash_collision__':
     hash_collision(500)
