@@ -15,7 +15,7 @@ def hash_collision(k):
         return (b'\x00', b'\x00')
 
     # Collision finding code goes here
-    for i in range(sys.maxsize):
+    for i in range(1000000):
 
         random_word = os.urandom(20)
         hash_result = hashlib.sha256(random_word).digest()
