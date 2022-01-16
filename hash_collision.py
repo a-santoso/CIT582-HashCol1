@@ -2,7 +2,7 @@ import hashlib
 import os
 import sys
 
-refTable = {}
+ref_table = {}
 
 
 def hash_collision(k):
@@ -17,22 +17,20 @@ def hash_collision(k):
     # Collision finding code goes here
     for i in range(sys.maxsize):
 
-        random_binary = os.urandom(8)
-        result = hashlib.sha256(random_binary).digest()
-        result = result[:k]
-        if result in refTable:
-            print("Collision found")
-            print(random_binary, result)
-            print(refTable[result], result)
-
-            x = random_binary
-            y = refTable[result]
+        random_word = os.urandom(20)
+        hash_result = hashlib.sha256(random_word).digest()
+        hash_result = hash_result[:k]        # slice to last k digits
+        if hash_result in ref_table:
+            print("Collision found \n")
+            print("Word 1 + Hash Result")
+            print(random_word, hash_result)
+            print("Word 2 + Hash Result")
+            print(ref_table[hash_result], hash_result)
+            x = random_word
+            y = ref_table[hash_result]
             return (x, y)
-
         else:
-            refTable[result] = random_binary
-
-
+            ref_table[hash_result] = random_word
 
 if __name__ == '__main__':
     hash_collision(3)
