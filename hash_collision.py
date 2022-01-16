@@ -25,13 +25,13 @@ def hash_collision(k):
             print(random_binary, result)
             print(refTable[result], result)
 
+            x = random_binary
+            y = refTable[result]
+            return (x, y)
+
         else:
             refTable[result] = random_binary
 
-    x = random_binary
-    y = refTable[result]
-
-    return (x, y)
 
 
 if __name__ == '__main__':
