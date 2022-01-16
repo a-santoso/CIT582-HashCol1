@@ -15,11 +15,11 @@ def hash_collision(k):
         return (b'\x00', b'\x00')
 
     # Collision finding code goes here
-    for i in range(1000000):
+    for i in range(10000):                  # 10000 iterations to find collission
 
-        random_word = os.urandom(2000)
+        random_word = os.urandom(20)        # Generate 20 bytes of random words
         hash_result = hashlib.sha256(random_word).digest()
-        hash_result = hash_result[:k]        # slice to last k digits
+        hash_result = hash_result[:k]       # Slice to last k digits
         if hash_result in ref_table:
             print("Collision found \n")
             print("Word 1 + Hash Result")
