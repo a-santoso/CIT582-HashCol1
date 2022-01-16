@@ -1,7 +1,8 @@
 import hashlib
 import os
+import sys
 
-lookup_table = {}
+refTable = {}
 
 
 def hash_collision(k):
@@ -14,21 +15,21 @@ def hash_collision(k):
         return (b'\x00', b'\x00')
 
     # Collision finding code goes here
-    for i in range(100000):
+    for i in range(sys.maxsize):
 
         random_binary = os.urandom(8)
         result = hashlib.sha256(random_binary).digest()
         result = result[:k]
-        if result in lookup_table:
+        if result in refTable:
             print("Collision found")
             print(random_binary, result)
-            print(lookup_table[result], result)
+            print(refTable[result], result)
 
         else:
-            lookup_table[result] = random_binary
+            refTable[result] = random_binary
 
     x = random_binary
-    y = lookup_table[result]
+    y = refTable[result]
 
     return (x, y)
 
