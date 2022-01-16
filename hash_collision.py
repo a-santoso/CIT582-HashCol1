@@ -21,14 +21,16 @@ def hash_collision(k):
             print("Collission")
             print(random_binary, result)
             print(lookup_table[result], result)
+            x = result[:1]
+            y = result[:1]
         else:
             lookup_table[result] = random_binary
 
-    x = b'\x00'
-    y = b'\x00'
+#    x = b'\x00'
+#    y = b'\x00'
 
     return (x, y)
 
 
-if __name__ == '__main__':
-    hash_collision(30)
+if __name__ == '__hash_collission__':
+    hash_collision(500)
