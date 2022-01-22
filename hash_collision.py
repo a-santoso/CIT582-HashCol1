@@ -1,6 +1,6 @@
 import hashlib
 import os
-import random
+#import random
 import binascii
 
 lookup_table = {}
@@ -16,17 +16,17 @@ def hash_collision(k):
         return (b'\x00', b'\x00')
 
     # Collision finding code goes here
-    for i in range(10000):
+    for i in range(100000):
 
         random_binary = os.urandom(k)
-#        random_binary = random.randint()
         result = hashlib.sha256(random_binary).hexdigest()
-        
-#        result = bin(result)
 
-#        result = int(result, 16)
+        result = int(result, 16)        
+        result = bin(result)
 
-        result = binascii.unhexlify(result)
+
+
+#        result = binascii.unhexlify(result)
         
 #        bin(result)
 
@@ -41,6 +41,7 @@ def hash_collision(k):
             print("Collision found")
             print(random_binary, result)
             print(lookup_table[result], result)
+            break
 
         else:
             lookup_table[result] = random_binary
@@ -54,4 +55,4 @@ def hash_collision(k):
 
 
 if __name__ == '__main__':
-    hash_collision(3)
+    hash_collision(10)
