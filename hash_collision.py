@@ -16,20 +16,25 @@ def hash_collision(k):
         return (b'\x00', b'\x00')
 
     # Collision finding code goes here
-    for i in range(1000):
+    for i in range(10000):
 
-        random_binary = os.urandom(8)
+        random_binary = os.urandom(k)
+#        random_binary = random.randint()
         result = hashlib.sha256(random_binary).hexdigest()
         
 #        result = bin(result)
 
-        result = binascii.unhexlify(result)
+#        result = int(result, 16)
 
-        print("Result before: ")
-        print(result)
+        result = binascii.unhexlify(result)
+        
+#        bin(result)
+
+#        print("Result before: ")
+#        print(result)
         result = result[-k:]
-        print("Result after: ")
-        print(result)
+#        print("Result after: ")
+#        print(result)
         
 
         if result in lookup_table:
@@ -42,6 +47,8 @@ def hash_collision(k):
 
     x = random_binary
     y = lookup_table[result]
+    
+    print ("end")
 
     return (x, y)
 
