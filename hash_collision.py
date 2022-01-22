@@ -1,8 +1,9 @@
 import hashlib
 import os
-import sys
+import random
+import binascii
 
-ref_table = {}
+lookup_table = {}
 
 
 def hash_collision(k):
@@ -15,22 +16,35 @@ def hash_collision(k):
         return (b'\x00', b'\x00')
 
     # Collision finding code goes here
-    for i in range(10000):                  # 10000 iterations to find collission
+    for i in range(1000):
 
-        random_word = os.urandom(20)        # Generate 20 bytes of random words
-        hash_result = hashlib.sha256(random_word).digest()
-        hash_result = hash_result[:k]       # Slice to last k digits
-        if hash_result in ref_table:
-            print("Collision found \n")
-            print("Word 1 + Hash Result")
-            print(random_word, hash_result)
-            print("Word 2 + Hash Result")
-            print(ref_table[hash_result], hash_result)
-            x = random_word
-            y = ref_table[hash_result]
-            return (x, y)
+        random_binary = os.urandom(8)
+        result = hashlib.sha256(random_binary).hexdigest()
+        
+#        result = bin(result)
+
+        result = binascii.unhexlify(result)
+
+        print("Result before: ")
+        print(result)
+        result = result[-k:]
+        print("Result after: ")
+        print(result)
+        
+
+        if result in lookup_table:
+            print("Collision found")
+            print(random_binary, result)
+            print(lookup_table[result], result)
+
         else:
-            ref_table[hash_result] = random_word
+            lookup_table[result] = random_binary
+
+    x = random_binary
+    y = lookup_table[result]
+
+    return (x, y)
+
 
 if __name__ == '__main__':
     hash_collision(3)
